@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useEffect, useRef, useState } from 'react';
+import { SubmitEvent, useEffect, useRef, useState } from 'react';
 import { Check, Copy } from 'lucide-react';
 
 const TURNSTILE_SCRIPT_URL =
@@ -112,7 +112,7 @@ export default function Home() {
     };
   }, []);
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     const formElement = event.currentTarget;
     const form = new FormData(formElement);
@@ -200,10 +200,10 @@ export default function Home() {
             </span>
           </nav>
 
-          <div className="server-menu-status" role="status" aria-label={`server status: ${statusText}`}>
-          <span className={`status-pixel status-${serverState}`} aria-hidden="true" />
+          <output className="server-menu-status" aria-label={`server status: ${statusText}`}>
+            <span className={`status-pixel status-${serverState}`} aria-hidden="true" />
             <span>{statusText}</span>
-          </div>
+          </output>
         </div>
       </header>
 
@@ -253,9 +253,9 @@ export default function Home() {
               </div>
 
               {registration.status === 'success' && (
-                <div className="form-message success-message" role="status">
+                <output className="form-message success-message">
                   account {registration.username} created successfully.
-                </div>
+                </output>
               )}
               {registration.status === 'error' && (
                 <div className="form-message error-message" role="alert">
