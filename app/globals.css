@@ -1,0 +1,727 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url('/fonts/poppins-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url('/fonts/poppins-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url('/fonts/poppins-600.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url('/fonts/poppins-700.woff2') format('woff2');
+}
+
+html,
+body {
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+}
+
+.swarena-desktop {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.swarena-desktop > [role='menu-bar'] {
+  border-bottom: 2px solid #000;
+  font-family: Poppins, sans-serif;
+}
+
+.server-menu-status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-left: auto;
+}
+
+.swarena-windows {
+  width: min(680px, calc(100% - 32px));
+  margin: 48px auto;
+  flex: 1;
+}
+
+.swarena-windows .window {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  box-shadow: 7px 7px 0 #000;
+}
+
+.swarena-windows .window-pane {
+  overflow-y: auto;
+}
+
+.form-pane {
+  min-height: 0;
+  padding: 32px;
+}
+
+.swarena-windows .title {
+  font-size: 17px;
+}
+
+.status-pixel {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #000;
+  background: #fff;
+}
+
+.status-online {
+  background: #000;
+}
+
+.status-checking {
+  background: repeating-linear-gradient(45deg, #000 0 2px, #fff 2px 4px);
+}
+
+.icon-button {
+  display: inline-grid;
+  min-width: 0;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.icon-button svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+}
+
+.icon-button:active,
+.icon-button:focus {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  outline: 1px dotted #000;
+}
+
+.swarena-field {
+  display: grid;
+  grid-template-columns: 175px 1fr;
+  align-items: start;
+  margin-top: 18px !important;
+}
+
+.swarena-field > label {
+  padding-top: 5px;
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.field-control {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field-control input {
+  width: 100%;
+  min-width: 0;
+  min-height: 34px;
+  padding: 5px 8px;
+  font-size: 16px;
+}
+
+.field-control small {
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.form-message {
+  margin-top: 16px;
+  font-family: Poppins, sans-serif;
+  font-size: 16px;
+}
+
+.turnstile-row {
+  display: flex;
+  min-height: 65px;
+  margin-top: 24px;
+  justify-content: flex-end;
+}
+
+.submit-row {
+  justify-content: flex-end;
+  margin-top: 26px !important;
+}
+
+.submit-row .btn {
+  min-width: 112px;
+  min-height: 34px;
+  padding: 5px 18px;
+  font-size: 16px;
+}
+
+.swarena-footer {
+  display: flex;
+  min-height: 56px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-top: 2px solid #000;
+  background: #fff;
+  padding: 8px 16px;
+}
+
+.swarena-footer code {
+  overflow-wrap: anywhere;
+  font-family: Poppins, sans-serif;
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+@media (max-width: 720px) {
+  .swarena-windows {
+    margin: 24px auto;
+  }
+
+  .form-pane {
+    padding: 22px;
+  }
+
+  .swarena-field {
+    grid-template-columns: 1fr;
+  }
+
+  .swarena-field > * + * {
+    margin-top: 5px;
+    margin-left: 0;
+  }
+}
+
+/* Minimal SwArena theme inspired by classic fantasy game interfaces. */
+:root {
+  color-scheme: dark;
+  --sw-bg: #11100e;
+  --sw-surface: #191713;
+  --sw-deep: #0d0c0a;
+  --sw-border: #4b3923;
+  --sw-border-light: #76562d;
+  --sw-gold: #c99a4a;
+  --sw-gold-muted: #98713a;
+  --sw-text: #e7dece;
+  --sw-muted: #978d7d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--sw-bg);
+  background-image:
+    linear-gradient(rgba(10, 9, 8, 0.68), rgba(10, 9, 8, 0.82)),
+    radial-gradient(circle at 50% -20%, rgba(130, 91, 39, 0.12), transparent 38%),
+    url('/gurubashi-arena-background.png');
+  background-position: center, center, center top;
+  background-size: auto, auto, cover;
+  background-repeat: no-repeat;
+  background-attachment: scroll, scroll, fixed;
+  color: var(--sw-text);
+  font-family: Poppins, sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.swarena-site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.site-header {
+  position: sticky;
+  top: 18px;
+  z-index: 10;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.nav-shell {
+  display: flex;
+  width: min(780px, calc(100% - 32px));
+  min-height: 74px;
+  margin: 18px auto 0;
+  align-items: center;
+  gap: 22px;
+  border: 1px solid #3f301f;
+  background: rgba(13, 12, 10, 0.97);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.38);
+  padding: 0 18px;
+  backdrop-filter: blur(8px);
+}
+
+.brand-mark {
+  display: flex;
+  width: auto;
+  height: auto;
+  flex: 0 0 auto;
+  margin: 0;
+  align-items: center;
+  border: 0;
+  background: transparent;
+  color: var(--sw-gold);
+  box-shadow: none;
+  padding: 0 4px;
+  text-decoration: none;
+}
+
+.brand-mark span {
+  display: flex;
+  width: auto;
+  height: auto;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.09em;
+  text-align: center;
+  text-transform: lowercase;
+}
+
+.primary-nav {
+  display: flex;
+  min-width: 0;
+  align-items: stretch;
+  gap: 20px;
+}
+
+.primary-nav > a,
+.primary-nav > span {
+  display: flex;
+  min-height: 74px;
+  align-items: center;
+  border-bottom: 1px solid transparent;
+  color: #c7b89e;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-transform: lowercase;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.primary-nav > a:hover,
+.primary-nav > a:focus-visible {
+  border-bottom-color: var(--sw-gold);
+  color: var(--sw-gold);
+  outline: none;
+}
+
+.nav-placeholder {
+  color: #6f675b !important;
+  cursor: default;
+}
+
+.leaderboard-link {
+  position: relative;
+}
+
+.leaderboard-link small {
+  position: absolute;
+  top: 48px;
+  left: 0;
+  color: var(--sw-gold-muted);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.server-menu-status {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+  gap: 8px;
+  color: var(--sw-muted);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  white-space: nowrap;
+}
+
+.status-pixel {
+  width: 8px;
+  height: 8px;
+  border: 0;
+  border-radius: 50%;
+  background: #655f55;
+  box-shadow: 0 0 0 1px #26221c;
+}
+
+.status-online {
+  background: #7ea66d;
+  box-shadow: 0 0 8px rgba(126, 166, 109, 0.45);
+}
+
+.status-offline {
+  background: #9a5449;
+}
+
+.status-checking {
+  background: var(--sw-gold-muted);
+}
+
+.site-content {
+  display: flex;
+  width: min(720px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 92px 0 72px;
+  flex: 1;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.account-panel,
+.leaderboard-panel {
+  border: 1px solid var(--sw-border);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.012), transparent), var(--sw-surface);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+}
+
+.account-panel {
+  scroll-margin-top: 118px;
+}
+
+.panel-heading {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 18px;
+  border-bottom: 1px solid #33291d;
+  padding: 20px 28px;
+}
+
+.panel-heading span {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--sw-border-light));
+}
+
+.panel-heading span:last-child {
+  background: linear-gradient(90deg, var(--sw-border-light), transparent);
+}
+
+.panel-heading h1 {
+  margin: 0;
+  color: var(--sw-gold);
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: lowercase;
+}
+
+.form-pane {
+  padding: 36px 40px 38px;
+}
+
+.swarena-field {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  align-items: start;
+  gap: 20px;
+  margin-top: 0 !important;
+}
+
+.swarena-field + .swarena-field {
+  margin-top: 22px !important;
+}
+
+.swarena-field > label {
+  padding-top: 10px;
+  color: #c9bdab;
+  font-size: 16px;
+}
+
+.field-control {
+  gap: 7px;
+}
+
+.field-control input {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid #5a4932;
+  border-radius: 0;
+  background: var(--sw-deep);
+  color: var(--sw-text);
+  padding: 8px 11px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.field-control input:focus {
+  border-color: var(--sw-gold-muted);
+  box-shadow: 0 0 0 2px rgba(201, 154, 74, 0.1);
+}
+
+.field-control small {
+  color: var(--sw-muted);
+  font-family: Poppins, sans-serif;
+  font-size: 12px;
+}
+
+.form-message {
+  margin-top: 24px;
+  border-left: 2px solid;
+  background: #12110f;
+  padding: 12px 14px;
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+}
+
+.success-message {
+  border-color: #7ea66d;
+  color: #a9c69d;
+}
+
+.error-message {
+  border-color: #c76b5c;
+  color: #d9978c;
+}
+
+.submit-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 28px !important;
+}
+
+.submit-button {
+  min-width: 128px;
+  min-height: 42px;
+  border: 1px solid var(--sw-gold-muted);
+  border-radius: 0;
+  background: #211a12;
+  color: var(--sw-gold);
+  padding: 8px 22px;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  cursor: pointer;
+}
+
+.submit-button:hover:not(:disabled),
+.submit-button:focus-visible {
+  border-color: var(--sw-gold);
+  background: #2a2116;
+  color: #e4bd76;
+  outline: none;
+}
+
+.submit-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.leaderboard-panel {
+  display: flex;
+  scroll-margin-top: 96px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+}
+
+.leaderboard-panel h2,
+.leaderboard-panel p {
+  margin: 0;
+  text-transform: lowercase;
+}
+
+.leaderboard-panel h2 {
+  color: #b7a991;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+
+.leaderboard-panel p {
+  color: var(--sw-gold-muted);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+
+.swarena-footer {
+  min-height: 64px;
+  border-top: 1px solid #2d2418;
+  background: var(--sw-deep);
+}
+
+.swarena-footer code {
+  color: #b8ad9c;
+  font-family: Poppins, sans-serif;
+  font-size: 16px;
+}
+
+.icon-button {
+  width: 26px;
+  height: 26px;
+  color: var(--sw-gold-muted);
+  cursor: pointer;
+}
+
+.icon-button:hover,
+.icon-button:focus-visible {
+  color: var(--sw-gold);
+  outline: 1px dotted var(--sw-gold-muted);
+  outline-offset: 2px;
+}
+
+@media (max-width: 860px) {
+  .nav-shell {
+    width: min(752px, calc(100% - 24px));
+    gap: 16px;
+    padding: 0 14px;
+  }
+
+  .brand-mark {
+    width: auto;
+    height: auto;
+    flex-basis: auto;
+    margin: 0;
+  }
+
+  .brand-mark span {
+    font-size: 19px;
+  }
+
+  .primary-nav {
+    gap: 18px;
+    overflow-x: auto;
+  }
+
+  .primary-nav > a,
+  .primary-nav > span {
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .server-menu-status span:last-child {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    background-position: center, center, 58% top;
+    background-attachment: scroll;
+  }
+
+  .site-header {
+    position: static;
+  }
+
+  .nav-shell {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 14px;
+    padding: 10px 0;
+  }
+
+  .brand-mark {
+    width: auto;
+    height: auto;
+    margin: 0;
+  }
+
+  .primary-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 14px;
+    overflow: visible;
+  }
+
+  .primary-nav > a,
+  .primary-nav > span {
+    min-height: 30px;
+    border: 0;
+    font-size: 10px;
+  }
+
+  .leaderboard-link small {
+    position: static;
+    margin-left: 6px;
+    font-size: 7px;
+  }
+
+  .site-content {
+    padding: 34px 0 42px;
+  }
+
+  .panel-heading {
+    padding: 18px 20px;
+  }
+
+  .panel-heading h1 {
+    font-size: 17px;
+    white-space: nowrap;
+  }
+
+  .form-pane {
+    padding: 26px 22px 28px;
+  }
+
+  .swarena-field {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+
+  .swarena-field > label {
+    padding-top: 0;
+  }
+
+  .turnstile-row {
+    justify-content: flex-start;
+    overflow-x: auto;
+  }
+
+  .leaderboard-panel {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .swarena-footer code {
+    font-size: 14px;
+  }
+}
