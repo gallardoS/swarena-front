@@ -54,7 +54,7 @@ export default function Home() {
   }
 
   async function copyRealmlist() {
-    await navigator.clipboard.writeText('set realmlist arena.swami.dev');
+    await navigator.clipboard.writeText('set realmlist swarena.swami.dev');
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1500);
   }
@@ -278,7 +278,7 @@ export default function Home() {
       </div>
 
       <footer className="swarena-footer">
-        <code>set realmlist arena.swami.dev</code>
+        <code>set realmlist swarena.swami.dev</code>
         <button
           type="button"
           className="icon-button"
