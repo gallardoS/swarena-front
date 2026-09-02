@@ -36,11 +36,17 @@ type RegistrationState =
   | { status: 'error'; message: string };
 
 type ServerState = 'checking' | 'online' | 'offline';
+type ActivePanel = 'create-account' | 'download';
+
+const CLIENT_DOWNLOAD_URL =
+  'https://drive.google.com/file/d/13WdW1357px5UZY4jPeCWm4Zjq3dy1JQJ/view?usp=sharing';
 
 export default function Home() {
+  const [activePanel, setActivePanel] = useState<ActivePanel>('create-account');
   const [registration, setRegistration] = useState<RegistrationState>({ status: 'idle' });
   const [serverState, setServerState] = useState<ServerState>('checking');
   const [copied, setCopied] = useState(false);
+  const [tutorialCopied, setTutorialCopied] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState('');
   const turnstileContainer = useRef<HTMLDivElement>(null);
   const turnstileWidgetId = useRef<string | null>(null);
@@ -57,6 +63,12 @@ export default function Home() {
     await navigator.clipboard.writeText('set realmlist swarena.swami.dev');
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1500);
+  }
+
+  async function copyTutorialRealmlist() {
+    await navigator.clipboard.writeText('set realmlist swarena.swami.dev');
+    setTutorialCopied(true);
+    window.setTimeout(() => setTutorialCopied(false), 1500);
   }
 
   useEffect(() => {
@@ -186,13 +198,22 @@ export default function Home() {
     <main className="swarena-site">
       <header className="site-header">
         <div className="nav-shell">
-          <a className="brand-mark" href="#create-account" aria-label="swarena home">
+          <a
+            className="brand-mark"
+            href="#create-account"
+            aria-label="swarena home"
+            onClick={() => setActivePanel('create-account')}
+          >
             <span>swarena</span>
           </a>
 
           <nav className="primary-nav" aria-label="primary navigation">
-            <a href="#create-account">create account</a>
-            <span className="nav-placeholder" aria-disabled="true">download</span>
+            <a href="#create-account" onClick={() => setActivePanel('create-account')}>
+              create account
+            </a>
+            <a href="#download" onClick={() => setActivePanel('download')}>
+              download
+            </a>
             <a href="https://discord.gg/y2uvRWC9tk" target="_blank" rel="noreferrer">discord</a>
             <span className="leaderboard-link" aria-disabled="true">
               leaderboard
@@ -208,7 +229,11 @@ export default function Home() {
       </header>
 
       <div className="site-content">
-        <section id="create-account" className="account-panel" aria-labelledby="registration-title">
+        <section
+          id="create-account"
+          className={`account-panel${activePanel === 'create-account' ? '' : ' panel-hidden'}`}
+          aria-labelledby="registration-title"
+        >
           <div className="panel-heading">
             <span aria-hidden="true" />
             <h1 id="registration-title">create account</h1>
@@ -273,6 +298,61 @@ export default function Home() {
                 </button>
               </div>
             </form>
+          </div>
+        </section>
+
+        <section
+          id="download"
+          className={`account-panel download-panel${activePanel === 'download' ? '' : ' panel-hidden'}`}
+          aria-labelledby="download-title"
+        >
+          <div className="panel-heading">
+            <span aria-hidden="true" />
+            <h1 id="download-title">download</h1>
+            <span aria-hidden="true" />
+          </div>
+
+          <div className="download-pane">
+            <div className="download-action">
+              <h2>download 3.3.5 client</h2>
+              <a
+                className="submit-button download-button"
+                href={CLIENT_DOWNLOAD_URL}
+                target="_blank"
+                rel="noreferrer"
+              >
+                download
+              </a>
+            </div>
+
+            <div className="download-divider" aria-hidden="true" />
+
+            <div className="tutorial-pane">
+              <h2>tutorial</h2>
+              <ol>
+                <li>download the client</li>
+                <li>
+                  <span className="tutorial-command">
+                    <code>set realmlist swarena.swami.dev</code>
+                    <button
+                      type="button"
+                      className="icon-button"
+                      onClick={copyTutorialRealmlist}
+                      aria-label={tutorialCopied ? 'copied' : 'copy realmlist'}
+                      title={tutorialCopied ? 'copied' : 'copy realmlist'}
+                    >
+                      {tutorialCopied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
+                    </button>
+                  </span>
+                </li>
+                <li>
+                  <a href="#create-account" onClick={() => setActivePanel('create-account')}>
+                    create account
+                  </a>
+                </li>
+                <li>play</li>
+              </ol>
+            </div>
           </div>
         </section>
       </div>
