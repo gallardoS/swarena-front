@@ -9,6 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "generate:talents": "node scripts/generate-talents.mjs",
     "lint": "oxlint",
     "format": "oxfmt"
   },

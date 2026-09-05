@@ -2,6 +2,7 @@
 
 import { SubmitEvent, useEffect, useRef, useState } from 'react';
 import { Check, Copy } from 'lucide-react';
+import TalentCalculator from './talents/TalentCalculator';
 
 const TURNSTILE_SCRIPT_URL =
   'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
@@ -36,7 +37,7 @@ type RegistrationState =
   | { status: 'error'; message: string };
 
 type ServerState = 'checking' | 'online' | 'offline';
-type ActivePanel = 'create-account' | 'download';
+type ActivePanel = 'create-account' | 'download' | 'talents';
 
 const CLIENT_DOWNLOAD_URL =
   'https://drive.google.com/file/d/13WdW1357px5UZY4jPeCWm4Zjq3dy1JQJ/view?usp=sharing';
@@ -219,6 +220,9 @@ export default function Home() {
               leaderboard
               <small>coming soon</small>
             </span>
+            <a href="#talents" onClick={() => setActivePanel('talents')}>
+              talents
+            </a>
           </nav>
 
           <output className="server-menu-status" aria-label={`server status: ${statusText}`}>
@@ -354,6 +358,19 @@ export default function Home() {
               </ol>
             </div>
           </div>
+        </section>
+
+        <section
+          id="talents"
+          className={`account-panel talents-panel${activePanel === 'talents' ? '' : ' panel-hidden'}`}
+          aria-labelledby="talents-title"
+        >
+          <div className="panel-heading">
+            <span aria-hidden="true" />
+            <h1 id="talents-title">talent calculator</h1>
+            <span aria-hidden="true" />
+          </div>
+          <TalentCalculator />
         </section>
       </div>
 
