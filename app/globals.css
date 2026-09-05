@@ -285,7 +285,7 @@ input {
 }
 
 .primary-nav > a,
-.primary-nav > span {
+.primary-nav > button {
   display: flex;
   min-height: 74px;
   align-items: center;
@@ -312,21 +312,56 @@ input {
 
 .leaderboard-link {
   position: relative;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  color: #5b5b5b !important;
+  cursor: not-allowed;
+  font: inherit;
 }
 
-.leaderboard-link small {
+.nav-tooltip {
   position: absolute;
-  top: 48px;
-  left: 0;
-  color: var(--sw-gold-muted);
+  top: calc(50% + 19px);
+  left: 50%;
+  z-index: 10;
+  padding: 5px 7px;
+  border: 1px solid var(--sw-border);
+  background: #15120e;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  color: var(--sw-gold);
   font-size: 9px;
   letter-spacing: 0.08em;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -4px);
+  transition: opacity 120ms ease, transform 120ms ease;
   white-space: nowrap;
+}
+
+.leaderboard-link:hover .nav-tooltip,
+.leaderboard-link:focus .nav-tooltip,
+.leaderboard-link:focus-visible .nav-tooltip,
+.leaderboard-link:active .nav-tooltip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.leaderboard-link:focus-visible {
+  outline: 1px solid var(--sw-gold-muted);
+  outline-offset: 4px;
+}
+
+.header-actions {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+  gap: 12px;
 }
 
 .server-menu-status {
   display: flex;
-  margin-left: auto;
   align-items: center;
   gap: 8px;
   color: var(--sw-muted);
@@ -557,6 +592,10 @@ input {
   text-transform: lowercase;
 }
 
+.mobile-menu-toggle {
+  display: none;
+}
+
 .download-action h2 {
   width: 100%;
   text-align: center;
@@ -588,6 +627,28 @@ input {
   align-items: center;
   gap: 5px;
   white-space: nowrap;
+}
+
+.discord-link {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  place-items: center;
+  color: #8f8473;
+  transition: color 150ms ease, transform 150ms ease;
+}
+
+.discord-link:hover,
+.discord-link:focus-visible {
+  color: var(--sw-gold);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.discord-link svg {
+  width: 19px;
+  height: 19px;
 }
 
 .tutorial-command code {
@@ -980,13 +1041,9 @@ input {
   }
 
   .primary-nav > a,
-  .primary-nav > span {
+  .primary-nav > button {
     font-size: 12px;
     white-space: nowrap;
-  }
-
-  .server-menu-status span:last-child {
-    display: none;
   }
 
   .talent-workspace {
@@ -1016,35 +1073,116 @@ input {
 
   .nav-shell {
     display: grid;
+    position: relative;
     grid-template-columns: auto 1fr auto;
-    gap: 14px;
-    padding: 10px 0;
+    gap: 10px;
+    padding: 10px 12px;
   }
 
   .brand-mark {
+    grid-column: 2;
+    grid-row: 1;
     width: auto;
     height: auto;
     margin: 0;
+    justify-self: center;
+  }
+
+  .mobile-menu-toggle {
+    display: grid;
+    width: 30px;
+    height: 30px;
+    grid-column: 1;
+    grid-row: 1;
+    padding: 0;
+    place-items: center;
+    align-self: center;
+    border: 0;
+    background: transparent;
+    color: #a99d89;
+    cursor: pointer;
+  }
+
+  .mobile-menu-toggle:hover,
+  .mobile-menu-toggle:focus-visible {
+    color: var(--sw-gold);
+    outline: 1px solid var(--sw-gold-muted);
+    outline-offset: 2px;
+  }
+
+  .mobile-menu-toggle svg {
+    width: 20px;
+    height: 20px;
   }
 
   .primary-nav {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0 14px;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 20;
+    display: none;
+    width: 190px;
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 8px 14px;
+    border: 1px solid #3f301f;
+    background: rgba(13, 12, 10, 0.99);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
     overflow: visible;
   }
 
+  .primary-nav.mobile-open {
+    display: grid;
+  }
+
   .primary-nav > a,
-  .primary-nav > span {
+  .primary-nav > button {
     min-height: 30px;
     border: 0;
     font-size: 10px;
   }
 
-  .leaderboard-link small {
-    position: static;
-    margin-left: 6px;
-    font-size: 7px;
+  .header-actions {
+    grid-column: 3;
+    grid-row: 1;
+    gap: 6px;
+  }
+
+  .server-menu-status {
+    gap: 5px;
+    font-size: 9px;
+  }
+
+  .status-pixel {
+    width: 7px;
+    height: 7px;
+  }
+
+  .discord-link {
+    width: 26px;
+    height: 26px;
+  }
+
+  .discord-link svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .nav-tooltip {
+    top: 50%;
+    left: calc(100% + 8px);
+    transform: translate(0, -50%);
+  }
+
+  .primary-nav > .leaderboard-link {
+    justify-self: start;
+  }
+
+  .leaderboard-link:hover .nav-tooltip,
+  .leaderboard-link:focus .nav-tooltip,
+  .leaderboard-link:focus-visible .nav-tooltip,
+  .leaderboard-link:active .nav-tooltip {
+    transform: translate(0, -50%);
   }
 
   .site-content {

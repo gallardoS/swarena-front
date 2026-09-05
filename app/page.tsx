@@ -1,7 +1,7 @@
 'use client';
 
 import { SubmitEvent, useEffect, useRef, useState } from 'react';
-import { Check, Copy } from 'lucide-react';
+import { Check, Copy, Menu, X } from 'lucide-react';
 import TalentCalculator from './talents/TalentCalculator';
 
 const TURNSTILE_SCRIPT_URL =
@@ -46,6 +46,7 @@ export default function Home() {
   const [activePanel, setActivePanel] = useState<ActivePanel>('create-account');
   const [registration, setRegistration] = useState<RegistrationState>({ status: 'idle' });
   const [serverState, setServerState] = useState<ServerState>('checking');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [tutorialCopied, setTutorialCopied] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState('');
@@ -199,36 +200,75 @@ export default function Home() {
     <main className="swarena-site">
       <header className="site-header">
         <div className="nav-shell">
+          <button
+            className="mobile-menu-toggle"
+            type="button"
+            aria-label={mobileMenuOpen ? 'close navigation menu' : 'open navigation menu'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="primary-navigation"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+          >
+            {mobileMenuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+          </button>
           <a
             className="brand-mark"
             href="#create-account"
             aria-label="swarena home"
-            onClick={() => setActivePanel('create-account')}
+            onClick={() => {
+              setActivePanel('create-account');
+              setMobileMenuOpen(false);
+            }}
           >
             <span>swarena</span>
           </a>
 
-          <nav className="primary-nav" aria-label="primary navigation">
-            <a href="#create-account" onClick={() => setActivePanel('create-account')}>
+          <nav
+            id="primary-navigation"
+            className={`primary-nav${mobileMenuOpen ? ' mobile-open' : ''}`}
+            aria-label="primary navigation"
+          >
+            <a href="#create-account" onClick={() => {
+              setActivePanel('create-account');
+              setMobileMenuOpen(false);
+            }}>
               create account
             </a>
-            <a href="#download" onClick={() => setActivePanel('download')}>
+            <a href="#download" onClick={() => {
+              setActivePanel('download');
+              setMobileMenuOpen(false);
+            }}>
               download
             </a>
-            <a href="https://discord.gg/y2uvRWC9tk" target="_blank" rel="noreferrer">discord</a>
-            <span className="leaderboard-link" aria-disabled="true">
+            <button className="leaderboard-link" type="button" aria-disabled="true">
               leaderboard
-              <small>coming soon</small>
-            </span>
-            <a href="#talents" onClick={() => setActivePanel('talents')}>
+              <span className="nav-tooltip" role="tooltip">coming soon</span>
+            </button>
+            <a href="#talents" onClick={() => {
+              setActivePanel('talents');
+              setMobileMenuOpen(false);
+            }}>
               talents
             </a>
           </nav>
 
-          <output className="server-menu-status" aria-label={`server status: ${statusText}`}>
-            <span className={`status-pixel status-${serverState}`} aria-hidden="true" />
-            <span>{statusText}</span>
-          </output>
+          <div className="header-actions">
+            <a
+              className="discord-link"
+              href="https://discord.gg/y2uvRWC9tk"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="join the SWArena Discord"
+              title="Discord"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M19.54 5.34A17 17 0 0 0 15.44 4l-.5 1.02a15.5 15.5 0 0 0-5.86 0L8.56 4a17 17 0 0 0-4.1 1.35C1.86 9.2 1.16 12.94 1.51 16.62a16.6 16.6 0 0 0 5.03 2.54l1.23-1.68a10.8 10.8 0 0 1-1.93-.93l.48-.37c3.72 1.72 7.76 1.72 11.43 0l.49.37c-.62.36-1.27.67-1.94.93l1.23 1.68a16.5 16.5 0 0 0 5.03-2.54c.42-4.27-.72-7.97-3.02-11.28ZM8.52 14.35c-1.12 0-2.04-1.03-2.04-2.29 0-1.26.9-2.3 2.04-2.3 1.14 0 2.06 1.04 2.04 2.3 0 1.26-.9 2.29-2.04 2.29Zm6.96 0c-1.12 0-2.04-1.03-2.04-2.29 0-1.26.9-2.3 2.04-2.3 1.14 0 2.06 1.04 2.04 2.3 0 1.26-.9 2.29-2.04 2.29Z" />
+              </svg>
+            </a>
+            <output className="server-menu-status" aria-label={`server status: ${statusText}`}>
+              <span className={`status-pixel status-${serverState}`} aria-hidden="true" />
+              <span>{statusText}</span>
+            </output>
+          </div>
         </div>
       </header>
 
