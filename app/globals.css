@@ -140,6 +140,12 @@ body {
   justify-content: flex-end;
 }
 
+.turnstile-row > div {
+  width: 100%;
+  max-width: 300px;
+  min-width: 0;
+}
+
 .submit-row {
   justify-content: flex-end;
   margin-top: 26px !important;
@@ -1213,7 +1219,6 @@ input {
 
   .turnstile-row {
     justify-content: flex-start;
-    overflow-x: auto;
   }
 
   .download-pane {

@@ -15,6 +15,7 @@ type TurnstileApi = {
       sitekey: string;
       action: string;
       theme: 'dark';
+      size: 'flexible' | 'compact';
       callback: (token: string) => void;
       'expired-callback': () => void;
       'timeout-callback': () => void;
@@ -101,10 +102,13 @@ export default function Home() {
       if (!active || !window.turnstile || !turnstileContainer.current) return;
       if (turnstileWidgetId.current) return;
 
+      const size = turnstileContainer.current.clientWidth < 300 ? 'compact' : 'flexible';
+
       turnstileWidgetId.current = window.turnstile.render(turnstileContainer.current, {
         sitekey: TURNSTILE_SITEKEY,
         action: 'signup',
         theme: 'dark',
+        size,
         callback: updateTurnstileToken,
         'expired-callback': () => updateTurnstileToken(''),
         'timeout-callback': () => updateTurnstileToken(''),
