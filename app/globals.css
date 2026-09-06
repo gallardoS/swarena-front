@@ -210,9 +210,16 @@ body {
   background-color: var(--sw-bg);
   background-image:
     linear-gradient(rgba(10, 9, 8, 0.68), rgba(10, 9, 8, 0.82)),
-    radial-gradient(circle at 50% -20%, rgba(130, 91, 39, 0.12), transparent 38%),
+    radial-gradient(
+      circle at 50% -20%,
+      rgba(130, 91, 39, 0.12),
+      transparent 38%
+    ),
     url('/gurubashi-arena-background.png');
-  background-position: center, center, center top;
+  background-position:
+    center,
+    center,
+    center top;
   background-size: auto, auto, cover;
   background-repeat: no-repeat;
   background-attachment: scroll, scroll, fixed;
@@ -301,7 +308,9 @@ input {
   letter-spacing: 0.06em;
   text-decoration: none;
   text-transform: lowercase;
-  transition: color 150ms ease, border-color 150ms ease;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease;
 }
 
 .primary-nav > a:hover,
@@ -316,47 +325,202 @@ input {
   cursor: default;
 }
 
-.leaderboard-link {
-  position: relative;
-  padding: 0;
+.leaderboard-panel {
+  width: 100%;
+}
+
+.site-content.leaderboard-active {
+  width: min(1180px, calc(100% - 32px));
+}
+
+.leaderboard-pane {
+  padding: 24px;
+}
+
+.bracket-tabs {
+  display: flex;
+  width: fit-content;
+  margin: 0 auto 22px;
+  border: 1px solid var(--sw-border);
+  background: rgba(8, 7, 5, 0.7);
+}
+
+.bracket-tabs button {
+  min-width: 84px;
+  padding: 10px 18px;
   border: 0;
-  border-bottom: 1px solid transparent;
+  border-right: 1px solid var(--sw-border);
   background: transparent;
-  color: #5b5b5b !important;
-  cursor: not-allowed;
+  color: var(--sw-muted);
+  cursor: pointer;
+  font: inherit;
+  letter-spacing: 0.08em;
+}
+
+.bracket-tabs button:last-child {
+  border-right: 0;
+}
+
+.bracket-tabs button:hover,
+.bracket-tabs button:focus-visible,
+.bracket-tabs button[aria-selected='true'] {
+  background: rgba(169, 128, 58, 0.16);
+  color: var(--sw-gold);
+  outline: none;
+}
+
+.leaderboard-results {
+  min-height: 220px;
+}
+
+.leaderboard-message {
+  margin: 70px auto;
+  color: var(--sw-muted);
+  text-align: center;
+}
+
+.leaderboard-message p {
+  margin: 0 0 14px;
+}
+
+.leaderboard-retry {
+  padding: 7px 18px;
+  border: 1px solid var(--sw-gold-muted);
+  background: rgba(169, 128, 58, 0.12);
+  color: var(--sw-gold);
+  cursor: pointer;
   font: inherit;
 }
 
-.nav-tooltip {
-  position: absolute;
-  top: calc(50% + 19px);
-  left: 50%;
-  z-index: 10;
-  padding: 5px 7px;
+.leaderboard-table-scroll {
+  overflow-x: auto;
   border: 1px solid var(--sw-border);
-  background: #15120e;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.leaderboard-table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+  background: rgba(8, 7, 5, 0.55);
+  color: var(--sw-text);
+  font-size: 13px;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(125, 101, 61, 0.3);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.leaderboard-table thead th {
+  background: rgba(169, 128, 58, 0.12);
   color: var(--sw-gold);
-  font-size: 9px;
+  font-size: 11px;
+  font-weight: 500;
   letter-spacing: 0.08em;
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-50%, -4px);
-  transition: opacity 120ms ease, transform 120ms ease;
-  white-space: nowrap;
+  text-transform: uppercase;
 }
 
-.leaderboard-link:hover .nav-tooltip,
-.leaderboard-link:focus .nav-tooltip,
-.leaderboard-link:focus-visible .nav-tooltip,
-.leaderboard-link:active .nav-tooltip {
-  opacity: 1;
-  transform: translate(-50%, 0);
+.leaderboard-table tbody th {
+  color: var(--sw-gold);
+  font-weight: 500;
 }
 
-.leaderboard-link:focus-visible {
-  outline: 1px solid var(--sw-gold-muted);
-  outline-offset: 4px;
+.leaderboard-table tbody tr:last-child > * {
+  border-bottom: 0;
+}
+
+.leaderboard-rank,
+.leaderboard-rating {
+  color: var(--sw-gold);
+  font-variant-numeric: tabular-nums;
+}
+
+.arena-members {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.arena-member {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #aaa;
+  line-height: 1.15;
+}
+
+.arena-member > img {
+  width: 28px;
+  height: 28px;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  object-fit: cover;
+}
+
+.arena-member > span {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.arena-member small {
+  margin-top: 3px;
+  color: var(--sw-muted);
+  font-size: 9px;
+}
+
+.arena-member.class-1 {
+  color: #c79c6e;
+}
+.arena-member.class-2 {
+  color: #f58cba;
+}
+.arena-member.class-3 {
+  color: #abd473;
+}
+.arena-member.class-4 {
+  color: #fff569;
+}
+.arena-member.class-5 {
+  color: #ffffff;
+}
+.arena-member.class-6 {
+  color: #c41f3b;
+}
+.arena-member.class-7 {
+  color: #0070de;
+}
+.arena-member.class-8 {
+  color: #69ccf0;
+}
+.arena-member.class-9 {
+  color: #9482c9;
+}
+.arena-member.class-11 {
+  color: #ff7d0a;
+}
+
+@media (max-width: 700px) {
+  .leaderboard-pane {
+    padding: 16px 12px;
+  }
+
+  .bracket-tabs {
+    width: 100%;
+  }
+
+  .bracket-tabs button {
+    min-width: 0;
+    flex: 1;
+    padding-inline: 10px;
+  }
+
+  .leaderboard-table th,
+  .leaderboard-table td {
+    padding: 10px;
+  }
 }
 
 .header-actions {
@@ -411,7 +575,9 @@ input {
 
 .account-panel {
   border: 1px solid var(--sw-border);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.012), transparent), var(--sw-surface);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.012), transparent),
+    var(--sw-surface);
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
 }
 
@@ -487,7 +653,9 @@ input {
   padding: 8px 11px;
   font-size: 16px;
   outline: none;
-  transition: border-color 150ms ease, box-shadow 150ms ease;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
 }
 
 .field-control input:focus {
@@ -578,7 +746,12 @@ input {
 
 .download-divider {
   width: 1px;
-  background: linear-gradient(180deg, transparent, var(--sw-border-light), transparent);
+  background: linear-gradient(
+    180deg,
+    transparent,
+    var(--sw-border-light),
+    transparent
+  );
 }
 
 .tutorial-pane {
@@ -642,7 +815,9 @@ input {
   flex: 0 0 auto;
   place-items: center;
   color: #8f8473;
-  transition: color 150ms ease, transform 150ms ease;
+  transition:
+    color 150ms ease,
+    transform 150ms ease;
 }
 
 .discord-link:hover,
@@ -831,7 +1006,11 @@ input {
   min-width: 0;
   border: 1px solid #3b3022;
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--class-color) 8%, transparent), transparent 22%),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--class-color) 8%, transparent),
+      transparent 22%
+    ),
     #11100e;
 }
 
@@ -886,7 +1065,10 @@ input {
   padding: 2px;
   cursor: pointer;
   filter: saturate(0.4) brightness(0.72);
-  transition: border-color 120ms ease, filter 120ms ease, transform 120ms ease;
+  transition:
+    border-color 120ms ease,
+    filter 120ms ease,
+    transform 120ms ease;
 }
 
 .talent-node:hover,
@@ -913,7 +1095,11 @@ input {
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background:
-    radial-gradient(circle at 35% 30%, hsla(var(--icon-hue), 52%, 55%, 0.42), transparent 38%),
+    radial-gradient(
+      circle at 35% 30%,
+      hsla(var(--icon-hue), 52%, 55%, 0.42),
+      transparent 38%
+    ),
     linear-gradient(145deg, hsla(var(--icon-hue), 42%, 30%, 0.72), #111 72%);
   font-size: 11px;
   font-weight: 600;
@@ -1069,7 +1255,10 @@ input {
 
 @media (max-width: 640px) {
   body {
-    background-position: center, center, 58% top;
+    background-position:
+      center,
+      center,
+      58% top;
     background-attachment: scroll;
   }
 
@@ -1174,23 +1363,6 @@ input {
     height: 17px;
   }
 
-  .nav-tooltip {
-    top: 50%;
-    left: calc(100% + 8px);
-    transform: translate(0, -50%);
-  }
-
-  .primary-nav > .leaderboard-link {
-    justify-self: start;
-  }
-
-  .leaderboard-link:hover .nav-tooltip,
-  .leaderboard-link:focus .nav-tooltip,
-  .leaderboard-link:focus-visible .nav-tooltip,
-  .leaderboard-link:active .nav-tooltip {
-    transform: translate(0, -50%);
-  }
-
   .site-content {
     padding: 34px 0 42px;
   }
@@ -1234,7 +1406,12 @@ input {
   .download-divider {
     width: 100%;
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--sw-border-light), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--sw-border-light),
+      transparent
+    );
   }
 
   .tutorial-pane {
