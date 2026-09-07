@@ -870,13 +870,13 @@ input {
 }
 
 .tutorial-pane a {
-  color: #aaa195;
+  color: #6da3dd;
   text-underline-offset: 3px;
 }
 
 .tutorial-pane a:hover,
 .tutorial-pane a:focus-visible {
-  color: #e4bd76;
+  color: #8fc1f6;
   outline: none;
 }
 
