@@ -41,8 +41,10 @@ type RegistrationState =
 type ServerState = 'checking' | 'online' | 'offline';
 type ActivePanel = 'create-account' | 'download' | 'leaderboard' | 'talents';
 
-const CLIENT_DOWNLOAD_URL =
-  'https://drive.google.com/file/d/13WdW1357px5UZY4jPeCWm4Zjq3dy1JQJ/view?usp=sharing';
+const LAUNCHER_DOWNLOAD_URL =
+  'https://github.com/gallardoS/swarena-launcher/releases/latest/download/swArena.Launcher.exe';
+const LAUNCHER_REPOSITORY_URL =
+  'https://github.com/gallardoS/swarena-launcher';
 
 export default function Home() {
   const [activePanel, setActivePanel] = useState<ActivePanel>('create-account');
@@ -52,7 +54,6 @@ export default function Home() {
   const [serverState, setServerState] = useState<ServerState>('checking');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [tutorialCopied, setTutorialCopied] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState('');
   const turnstileContainer = useRef<HTMLDivElement>(null);
   const turnstileWidgetId = useRef<string | null>(null);
@@ -69,12 +70,6 @@ export default function Home() {
     await navigator.clipboard.writeText('set realmlist swarena.swami.dev');
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1500);
-  }
-
-  async function copyTutorialRealmlist() {
-    await navigator.clipboard.writeText('set realmlist swarena.swami.dev');
-    setTutorialCopied(true);
-    window.setTimeout(() => setTutorialCopied(false), 1500);
   }
 
   useEffect(() => {
@@ -464,15 +459,31 @@ export default function Home() {
 
           <div className="download-pane">
             <div className="download-action">
-              <h2>download 3.3.5 client</h2>
-              <a
-                className="submit-button download-button"
-                href={CLIENT_DOWNLOAD_URL}
-                target="_blank"
-                rel="noreferrer"
-              >
-                download
-              </a>
+              <div className="download-option">
+                <h2>download launcher</h2>
+                <a
+                  className="submit-button download-button"
+                  href={LAUNCHER_DOWNLOAD_URL}
+                >
+                  download
+                </a>
+                <a
+                  className="launcher-source-link"
+                  href={LAUNCHER_REPOSITORY_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      fill="currentColor"
+                      d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z"
+                    />
+                  </svg>
+                  <span>
+                    check the code and compile the .exe yourself here
+                  </span>
+                </a>
+              </div>
             </div>
 
             <div className="download-divider" aria-hidden="true" />
@@ -480,25 +491,6 @@ export default function Home() {
             <div className="tutorial-pane">
               <h2>tutorial</h2>
               <ol>
-                <li>download the client</li>
-                <li>
-                  <span className="tutorial-command">
-                    <code>set realmlist swarena.swami.dev</code>
-                    <button
-                      type="button"
-                      className="icon-button"
-                      onClick={copyTutorialRealmlist}
-                      aria-label={tutorialCopied ? 'copied' : 'copy realmlist'}
-                      title={tutorialCopied ? 'copied' : 'copy realmlist'}
-                    >
-                      {tutorialCopied ? (
-                        <Check aria-hidden="true" />
-                      ) : (
-                        <Copy aria-hidden="true" />
-                      )}
-                    </button>
-                  </span>
-                </li>
                 <li>
                   <a
                     href="#create-account"
@@ -507,6 +499,9 @@ export default function Home() {
                     create account
                   </a>
                 </li>
+                <li>download launcher</li>
+                <li>download any 3.3.5a client (not provided here)</li>
+                <li>run launcher and select the client folder</li>
                 <li>play</li>
               </ol>
             </div>
