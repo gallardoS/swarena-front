@@ -785,12 +785,96 @@ input {
   flex: 0 0 auto;
 }
 
-.download-button {
-  display: inline-flex;
-  min-width: 132px;
+.download-list {
+  width: min(100%, 330px);
+  overflow: hidden;
+  border: 1px solid #3a3025;
+  background: rgba(8, 8, 8, 0.28);
+}
+
+.download-row {
+  display: flex;
+  min-height: 64px;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 10px 13px;
+  color: #b6afa5;
   text-decoration: none;
+  transition:
+    border-color 140ms ease,
+    background 140ms ease,
+    color 140ms ease;
+}
+
+.download-row + .download-row {
+  border-top: 1px solid #3a3025;
+}
+
+.download-row:hover,
+.download-row:focus-visible {
+  background: rgba(205, 155, 77, 0.08);
+  color: var(--sw-gold);
+  outline: none;
+}
+
+.download-item,
+.download-source {
+  display: flex;
+  align-items: center;
+}
+
+.download-item {
+  min-width: 0;
+  gap: 10px;
+}
+
+.download-item > svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  color: #c9b991;
+}
+
+.download-item > span {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.download-item strong {
+  overflow: hidden;
+  color: #d4cec4;
+  font-size: 13px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.download-item small {
+  color: #777067;
+  font-size: 11px;
+}
+
+.download-source {
+  flex: 0 0 auto;
+  gap: 5px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.download-source svg {
+  width: 15px;
+  height: 15px;
+}
+
+.client-download-note {
+  margin: 10px 0 0;
+  color: #746d63;
+  font-size: 11px;
+  line-height: 1.4;
+  text-align: center;
 }
 
 .download-divider {

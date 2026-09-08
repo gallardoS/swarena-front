@@ -1,7 +1,15 @@
 'use client';
 
 import { SubmitEvent, useEffect, useRef, useState } from 'react';
-import { Check, Copy, Menu, X } from 'lucide-react';
+import {
+  Check,
+  CloudDownload,
+  Copy,
+  Magnet,
+  Menu,
+  MonitorDown,
+  X,
+} from 'lucide-react';
 import TalentCalculator from './talents/TalentCalculator';
 import ArenaLeaderboard from './leaderboard/ArenaLeaderboard';
 
@@ -43,8 +51,12 @@ type ActivePanel = 'create-account' | 'download' | 'leaderboard' | 'talents';
 
 const LAUNCHER_DOWNLOAD_URL =
   'https://github.com/gallardoS/swarena-launcher/releases/latest/download/swArena.Launcher.exe';
-const LAUNCHER_REPOSITORY_URL =
-  'https://github.com/gallardoS/swarena-launcher';
+const LAUNCHER_REPOSITORY_URL = 'https://github.com/gallardoS/swarena-launcher';
+const LAUNCHER_VERSION = '1.0.2';
+const CLIENT_TORRENT_URL =
+  'magnet:?xt=urn:btih:AF329C57102DB74312DB8D1EE7A1C3089E92A7B4&dn=WoW_3.3.5a&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce';
+const CLIENT_DRIVE_URL =
+  'https://drive.google.com/file/d/1hTuFHFRoG2_TZeCJKNtZkIkG185YbG3z/view?usp=drive_link';
 
 export default function Home() {
   const [activePanel, setActivePanel] = useState<ActivePanel>('create-account');
@@ -460,13 +472,22 @@ export default function Home() {
           <div className="download-pane">
             <div className="download-action">
               <div className="download-option">
-                <h2>download launcher</h2>
-                <a
-                  className="submit-button download-button"
-                  href={LAUNCHER_DOWNLOAD_URL}
-                >
-                  download
-                </a>
+                <h2>launcher</h2>
+                <div className="download-list">
+                  <a className="download-row" href={LAUNCHER_DOWNLOAD_URL}>
+                    <span className="download-item">
+                      <MonitorDown aria-hidden="true" />
+                      <span>
+                        <strong>swArena Launcher</strong>
+                        <small>{LAUNCHER_VERSION}</small>
+                      </span>
+                    </span>
+                    <span className="download-source">
+                      <CloudDownload aria-hidden="true" />
+                      Download
+                    </span>
+                  </a>
+                </div>
                 <a
                   className="launcher-source-link"
                   href={LAUNCHER_REPOSITORY_URL}
@@ -479,10 +500,48 @@ export default function Home() {
                       d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z"
                     />
                   </svg>
-                  <span>
-                    check the code and compile the .exe yourself here
-                  </span>
+                  <span>check the code and compile the .exe yourself here</span>
                 </a>
+              </div>
+
+              <div className="download-option">
+                <h2>client</h2>
+                <div className="download-list">
+                  <a
+                    className="download-row"
+                    href={CLIENT_DRIVE_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <span className="download-item">
+                      <MonitorDown aria-hidden="true" />
+                      <span>
+                        <strong>Windows Client</strong>
+                        <small>3.3.5a</small>
+                      </span>
+                    </span>
+                    <span className="download-source">
+                      <CloudDownload aria-hidden="true" />
+                      Google Drive
+                    </span>
+                  </a>
+                  <a className="download-row" href={CLIENT_TORRENT_URL}>
+                    <span className="download-item">
+                      <MonitorDown aria-hidden="true" />
+                      <span>
+                        <strong>Windows Client</strong>
+                        <small>3.3.5a</small>
+                      </span>
+                    </span>
+                    <span className="download-source">
+                      <Magnet aria-hidden="true" />
+                      Torrent
+                    </span>
+                  </a>
+                </div>
+                <p className="client-download-note">
+                  any 3.3.5a client you find online will work
+                </p>
               </div>
             </div>
 
@@ -500,7 +559,7 @@ export default function Home() {
                   </a>
                 </li>
                 <li>download launcher</li>
-                <li>download any 3.3.5a client (not provided here)</li>
+                <li>download the 3.3.5a client</li>
                 <li>run launcher and select the client folder</li>
                 <li>play</li>
               </ol>
